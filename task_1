@@ -1,0 +1,60 @@
+def recursive_sum(lst):
+    if not lst:       
+        return 0
+    return lst[0] + recursive_sum(lst[1:])  
+
+def recursive_binary_search(arr, target, left=0, right=None):
+    if right is None:
+        right = len(arr) - 1
+    if left > right:
+        return -1
+    mid = (left + right) // 2
+    if arr[mid] == target:
+        return mid
+    elif arr[mid] < target:
+        return recursive_binary_search(arr, target, mid + 1, right)
+    else:
+        return recursive_binary_search(arr, target, left, mid - 1)
+
+class Stack:
+    def __init__(self):
+        self.items = []      
+
+    def push(self, item):
+        self.items.append(item) 
+
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop()
+        else:
+            return None         
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1]
+        else:
+            return None
+
+print("Проверка рекурсивной суммы")
+print(recursive_sum([1, 2, 3, 4, 5]))   # 15
+print(recursive_sum([]))                # 0
+
+print("\nПроверка рекурсивного бинарного поиска")
+sorted_arr = [1, 3, 5, 7, 9, 11, 13]
+print(recursive_binary_search(sorted_arr, 7)) 
+print(recursive_binary_search(sorted_arr, 2)) 
+
+print("\nПроверка стека")
+s = Stack()
+s.push(10)
+s.push(20)
+s.push(30)
+print("Верхний элемент (peek):", s.peek())  
+print("Извлечение pop:", s.pop())           
+print("Извлечение pop:", s.pop())           
+print("Стек пуст?", s.is_empty())            
+print("Извлечение pop:", s.pop())           
+print("Стек пуст?", s.is_empty())            
